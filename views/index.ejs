@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema de Asistencias</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/navbar.css' />
+  </head>
+  <!-- Header de la Pagina-->
+  <header>
+    <div class="contenido-header">
+        <!-- Navbar -->
+        <h1>Sistema de Asistencias</h1>
+        <nav id="nav" class="">
+            <ul id="links">
+                <li><a href="/" onclick = "seleccionar(this)">ASISTENCIA</a></li>
+                <li><a href="/consulta" onclick = "seleccionar(this)">CONSULTAS</a></li>
+                <li><a href="/trabajadores" onclick = "seleccionar(this)">TRABAJADORES</a></li>
+                <li><a href="" onclick = "seleccionar(this)">MANUAL DE USUARIO</a></li>
+            </ul>
+        </nav>
+
+        <!-- Iconos del menu responsive -->
+        <div id="icono-nav" onclick="responsiveMenu()">
+            <img src="/images/icons/menu.svg">
+        </div>
+    </div>
+  </header>
+
+  <body>
+    <form action="/" method="post" class="form-asistencia">
+      <h2>Fecha</h2>
+      <input type="date" name="fecha" id="fecha">
+      <h2>Tabla de empleados</h2>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cédula de identidad</th>
+            <th>Función/Cargo</th>
+            <th>Asistencia</th>
+            <th>Hora de entrada</th>
+            <th>Hora de salida</th>
+          </tr>
+          <% for (let i = 0; i < items.length; i++) { %>
+            <tr>
+              <td><input type="text" name="ID<%=i%>" id="ID<%=i%>" class="ID" value="<%=items[i].ID%>" readonly></td>
+              <td><%= items[i].nombre %></td>
+              <td><%= items[i].apellido %></td>
+              <td><%= items[i].cedula %></td>
+              <td><%= items[i].cargo %></td>
+              <td><input type="checkbox" id="asistencia<%=i%>" name="asistencia<%=i%>" onchange="toggleHora(<%=i%>)"><label for="asistencia<%=i%>"></label></td>
+              <td><input type="time" class="hora_entrada" id="hora_entrada<%=i%>" name="hora_entrada<%=i%>" style="display:none;"></td>
+              <td><input type="time" class="hora_salida" id="hora_salida<%=i%>" name="hora_salida<%=i%>" style="display:none;"></td>
+            </tr>
+          <% } %>
+        </table>
+        <h2>Observaciones</h2>
+        <textarea name="observaciones" id="observaciones" cols="30" rows="10"></textarea>
+        <button class="btn submit" type="submit">Registrar Asistencias</button>
+    </form>
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+    <script>
+
+    </script>
+      <script>
+        function toggleHora(i) {
+          var entrada = document.getElementById("hora_entrada" + i);
+          var salida = document.getElementById("hora_salida" + i);
+          if (document.getElementById("asistencia" + i).checked) {
+            entrada.style.display = "block";
+            salida.style.display = "block";
+          } else {
+            entrada.style.display = "none";
+            salida.style.display = "none";
+          }
+        }
+
+        // Obtener el elemento de entrada de fecha
+          var fechaInput = document.getElementById("fecha");
+
+        // Crear un objeto Date con la fecha actual del dispositivo del usuario
+          var fechaActual = new Date();
+
+        // Establecer el valor del campo de entrada como la fecha actual del dispositivo del usuario
+          fechaInput.value = fechaActual.toISOString().slice(0, 10);
+      </script>
+  </body>
+</html>

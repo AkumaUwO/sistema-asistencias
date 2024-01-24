@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema de Asistencias</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/navbar.css' />
+  </head>
+  <!-- Header de la Pagina-->
+  <header>
+    <div class="contenido-header">
+        <!-- Navbar -->
+        <h1>Sistema de Asistencias</h1>
+        <nav id="nav" class="">
+            <ul id="links">
+                <li><a href="/" onclick = "seleccionar(this)">INICIO</a></li>
+                <li><a href="" onclick = "seleccionar(this)">VER TRABAJADORES</a></li>
+                <li><a href="/agregar-trabajador" onclick = "seleccionar(this)">AGREGAR TRABAJADOR</a></li>
+            </ul>
+        </nav>
+
+        <!-- Iconos del menu responsive -->
+        <div id="icono-nav" onclick="responsiveMenu()">
+            <img src="/images/icons/menu.svg">
+        </div>
+    </div>
+  </header>
+
+  <body>
+
+    
+  <div class="form-asistencia">
+    <h2>Tabla de empleados</h2>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cedula</th>
+        <th>Cargo</th>
+        <th>Actualizar</th>
+        <th>Eliminar</th>
+      </tr>
+      <% for (let i = 0; i < items.length; i++) { %>
+        <tr>
+          <td><%= items[i].ID %></td>
+          <td><%= items[i].nombre %></td>
+          <td><%= items[i].apellido %></td>
+          <td><%= items[i].cedula %></td>
+          <td><%= items[i].cargo %></td>
+          <td><button  onclick="actualizar(<%= items[i].ID %>)">Actualizar</button></td>
+          <td><button  onclick="eliminar(<%= items[i].ID %>)">Eliminar</button></td>
+        </tr>
+      <% } %>
+    </table>
+
+  </div>
+
+    <script>
+      function actualizar(id) {
+        // Redirecciona a la URL con el ID como parámetro
+        if (confirm('¿Estás seguro de que quieres realizar esta acción?')) {
+          // El usuario hizo clic en "Aceptar"
+          window.location.href = `/update-trabajador/${id}`;
+          console.log('Acción confirmada');
+        } else {
+          // El usuario hizo clic en "Cancelar"
+          console.log('Acción cancelada');
+        }
+
+      }
+      function eliminar(id) {
+        // Redirecciona a la URL con el ID como parámetro
+        if (confirm('¿Estás seguro de que quieres realizar esta acción?')) {
+          // El usuario hizo clic en "Aceptar"
+          window.location.href = `/delete-trabajador/${id}`;
+          console.log('Acción confirmada');
+        } else {
+          // El usuario hizo clic en "Cancelar"
+          console.log('Acción cancelada');
+        }
+
+
+      }
+</script>
+  </body>
+</html>

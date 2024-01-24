@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/navbar.css' />
+    <title>Consultar Asistencia</title>
+</head>
+
+  <!-- Header de la Pagina-->
+  <header>
+    <div class="contenido-header">
+        <!-- Navbar -->
+        <h1>Sistema de Asistencias</h1>
+        <nav id="nav" class="">
+            <ul id="links">
+                <li><a href="/" onclick = "seleccionar(this)">ASISTENCIA</a></li>
+                <li><a href="/consulta" onclick = "seleccionar(this)">CONSULTAS</a></li>
+                <li><a href="/trabajadores" onclick = "seleccionar(this)">TRABAJADORES</a></li>
+                <li><a href="" onclick = "seleccionar(this)">MANUAL DE USUARIO</a></li>
+            </ul>
+        </nav>
+
+        <!-- Iconos del menu responsive -->
+        <div id="icono-nav" onclick="responsiveMenu()">
+            <img src="/images/icons/menu.svg">
+        </div>
+    </div>
+  </header>
+<body>
+    <form action="/consulta" method="post" class="form-asistencia">
+        <h2>Ingrese la fecha para consultar las Asistencias</h2>
+        <input type="date" name="fecha" id="fecha">
+        <button type="submit">Consultar Asistencia</button>
+    </form>
+    <div class="form-consulta">
+
+        <table>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Cédula de identidad</th>
+              <th>Función/Cargo</th>
+              <th>Hora de entrada</th>
+              <th>Hora de salida</th>
+            </tr>
+            <% for (let i = 0; i < items.length; i++) { %>
+              <tr>
+                <td><%= items[i].nombre %></td>
+                <td><%= items[i].apellido %></td>
+                <td><%= items[i].cedula %></td>
+                <td><%= items[i].cargo %></td>
+                <td><%= items[i].horaEntrada %></td>
+                <td><%= items[i].horaSalida %></td>
+              </tr>
+            <% } %>
+          </table>
+        
+    </div>
+
+    <script>
+          // Obtener el elemento de entrada de fecha
+          var fechaInput = document.getElementById("fecha");
+
+        // Crear un objeto Date con la fecha actual del dispositivo del usuario
+          var fechaActual = new Date();
+
+        // Establecer el valor del campo de entrada como la fecha actual del dispositivo del usuario
+          fechaInput.value = fechaActual.toISOString().slice(0, 10);
+    </script>
+
+</body>
+</html>
